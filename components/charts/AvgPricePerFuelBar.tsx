@@ -82,7 +82,7 @@ export function AvgPricePerFuelBar({ stations }: Props) {
             <Bar
               dataKey="avgValue"
               radius={[6, 6, 0, 0]}
-              animationDuration={600}
+              animationDuration={350}
             >
               {data.map((row, idx) => (
                 <Cell

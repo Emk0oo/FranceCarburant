@@ -51,7 +51,7 @@ export function FuelAvailabilityPie({ stations }: Props) {
               innerRadius="55%"
               outerRadius="85%"
               paddingAngle={2}
-              animationDuration={700}
+              animationDuration={400}
               stroke="var(--background)"
               strokeWidth={2}
             >

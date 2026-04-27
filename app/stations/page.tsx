@@ -3,8 +3,6 @@ import { Container } from "@/components/ui/Container";
 import { StationsView } from "@/components/map/StationsView";
 import { StationsAnalyticsDynamic } from "@/components/charts/StationsAnalyticsDynamic";
 import { getStations } from "@/lib/stations";
-import { formatPrice } from "@/lib/utils";
-import { FUEL_TYPES } from "@/types";
 
 export const metadata = {
   title: "Stations",
@@ -12,11 +10,8 @@ export const metadata = {
     "Interactive map and list of service stations with fuel prices in France.",
 };
 
-const PREVIEW_LIMIT = 50;
-
 export default async function StationsPage() {
   const stations = await getStations();
-  const preview = stations.slice(0, PREVIEW_LIMIT);
 
   return (
     <div className="py-12 sm:py-16">

@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { FUEL_TYPES, type FuelType } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { PRICE_PALETTE, NO_PRICE_COLOR } from "./legend";
@@ -11,7 +12,7 @@ type Props = {
   hasNoPriceStations: boolean;
 };
 
-export function MapControls({
+function MapControlsInner({
   selectedFuel,
   onChange,
   thresholds,
@@ -97,3 +98,5 @@ function LegendRow({ color, label }: { color: string; label: string }) {
     </li>
   );
 }
+
+export const MapControls = memo(MapControlsInner);

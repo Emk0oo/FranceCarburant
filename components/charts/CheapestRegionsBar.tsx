@@ -91,7 +91,7 @@ export function CheapestRegionsBar({ stations, selectedFuel }: Props) {
               <Bar
                 dataKey="avg"
                 radius={[0, 4, 4, 0]}
-                animationDuration={600}
+                animationDuration={350}
               >
                 {data.map((row, idx) => (
                   <Cell

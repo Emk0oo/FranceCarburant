@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import L from "leaflet";
 import {
   MapContainer,
@@ -55,7 +55,7 @@ type Props = {
   onBoundsChange: (bounds: Bounds) => void;
 };
 
-export default function StationsMap({
+function StationsMap({
   stations,
   selectedFuel,
   thresholds,
@@ -73,6 +73,26 @@ export default function StationsMap({
     };
   }, []);
 
+  const markers = useMemo(
+    () =>
+      stations.map((s) => {
+        const price = s.prices[selectedFuel];
+        const color = colorForPrice(price, thresholds);
+        return (
+          <Marker
+            key={s.id}
+            position={[s.lat, s.lng]}
+            icon={iconCache(color)}
+          >
+            <Popup minWidth={220} maxWidth={260} closeButton={false}>
+              <StationPopup station={s} selectedFuel={selectedFuel} />
+            </Popup>
+          </Marker>
+        );
+      }),
+    [stations, selectedFuel, thresholds, iconCache]
+  );
+
   return (
     <MapContainer
       center={FRANCE_CENTER}
@@ -85,26 +105,18 @@ export default function StationsMap({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <BoundsTracker onChange={onBoundsChange} />
-      <MarkerClusterGroup chunkedLoading maxClusterRadius={60}>
-        {stations.map((s) => {
-          const price = s.prices[selectedFuel];
-          const color = colorForPrice(price, thresholds);
-          return (
-            <Marker
-              key={s.id}
-              position={[s.lat, s.lng]}
-              icon={iconCache(color)}
-            >
-              <Popup minWidth={220} maxWidth={260} closeButton={false}>
-                <StationPopup station={s} selectedFuel={selectedFuel} />
-              </Popup>
-            </Marker>
-          );
-        })}
+      <MarkerClusterGroup
+        chunkedLoading
+        maxClusterRadius={80}
+        removeOutsideVisibleBounds
+      >
+        {markers}
       </MarkerClusterGroup>
     </MapContainer>
   );
 }
+
+export default memo(StationsMap);
 
 function BoundsTracker({ onChange }: { onChange: (b: Bounds) => void }) {
   const map = useMap();

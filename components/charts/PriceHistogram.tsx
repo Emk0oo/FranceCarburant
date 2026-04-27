@@ -110,7 +110,7 @@ export function PriceHistogram({ stations, selectedFuel, onFuelChange }: Props) 
                 dataKey="count"
                 fill={PRICE_PALETTE[2]}
                 radius={[4, 4, 0, 0]}
-                animationDuration={600}
+                animationDuration={350}
               />
             </BarChart>
           </ResponsiveContainer>
