@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { StationsView } from "@/components/map/StationsView";
+import { StationsAnalyticsDynamic } from "@/components/charts/StationsAnalyticsDynamic";
 import { getStations } from "@/lib/stations";
 import { formatPrice } from "@/lib/utils";
 import { FUEL_TYPES } from "@/types";
@@ -43,14 +44,14 @@ export default async function StationsPage() {
       <section id="map" className="mb-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-[1700px]">
           <StationsView stations={stations} />
-          <p className="mt-3 text-xs text-zinc-500">
+          {/* <p className="mt-3 text-xs text-zinc-500">
             Tip: zoom or pan the map — the KPIs on the left recompute over the
             visible area.
-          </p>
+          </p> */}
         </div>
       </section>
 
-      <Container>
+      {/* <Container>
         <h2 className="mb-4 text-xl font-semibold tracking-tight">
           Preview (first {preview.length} stations)
         </h2>
@@ -81,6 +82,10 @@ export default async function StationsPage() {
             </li>
           ))}
         </ul>
+      </Container> */}
+
+      <Container className="mt-16">
+        <StationsAnalyticsDynamic stations={stations} />
       </Container>
     </div>
   );
