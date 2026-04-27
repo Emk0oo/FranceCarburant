@@ -22,7 +22,7 @@ export function MapControls({
       <div className="divide-y divide-black/[.08] dark:divide-white/[.12]">
         <div className="px-4 py-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-            Carburant
+            Fuel
           </p>
           <div className="mt-2 grid grid-cols-2 gap-1.5">
             {FUEL_TYPES.map((f) => {
@@ -47,7 +47,7 @@ export function MapControls({
 
         <div className="px-4 py-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-            Légende
+            Legend
           </p>
           {thresholds.length === 4 ? (
             <ul className="mt-2 space-y-1.5 text-xs">
@@ -72,12 +72,12 @@ export function MapControls({
                 label={`> ${formatPrice(thresholds[3])}`}
               />
               {hasNoPriceStations && (
-                <LegendRow color={NO_PRICE_COLOR} label="Non disponible" />
+                <LegendRow color={NO_PRICE_COLOR} label="Not available" />
               )}
             </ul>
           ) : (
             <p className="mt-2 text-xs text-zinc-500">
-              Aucune donnée pour ce carburant.
+              No data for this fuel.
             </p>
           )}
         </div>

@@ -27,26 +27,26 @@ export function KPIPanel({ stats, fuelLabel, isFiltered }: Props) {
     <div className="w-full overflow-hidden rounded-2xl border border-black/[.08] bg-background dark:border-white/[.12]">
       <div className="divide-y divide-black/[.08] dark:divide-white/[.12]">
         <Section>
-          <Label>{isFiltered ? "Vue actuelle" : "France entière"}</Label>
+          <Label>{isFiltered ? "Current view" : "All of France"}</Label>
           <p className="mt-0.5 text-base font-semibold tracking-tight">
             {fuelLabel}
           </p>
           <p className="mt-1 text-xs text-zinc-500">
             <span className="font-semibold text-foreground tabular-nums">
-              {count.toLocaleString("fr-FR")}
+              {count.toLocaleString("en-US")}
             </span>{" "}
-            / {total.toLocaleString("fr-FR")} stations · {coverage}%
+            / {total.toLocaleString("en-US")} stations · {coverage}%
           </p>
         </Section>
 
         <Section>
-          <Label>Prix moyen</Label>
+          <Label>Average price</Label>
           <p className="mt-0.5 text-2xl font-semibold tabular-nums tracking-tight">
             {avg != null ? formatPrice(avg) : "—"}
           </p>
           {median != null && (
             <p className="mt-0.5 text-xs text-zinc-500">
-              Médiane{" "}
+              Median{" "}
               <span className="font-medium text-foreground tabular-nums">
                 {formatPrice(median)}
               </span>
@@ -73,7 +73,7 @@ export function KPIPanel({ stats, fuelLabel, isFiltered }: Props) {
 
         {cheapestStation && (
           <Section>
-            <Label>Moins cher</Label>
+            <Label>Cheapest</Label>
             <p
               className="mt-0.5 truncate text-sm font-semibold"
               title={cheapestStation.name}

@@ -8,7 +8,7 @@ import { FUEL_TYPES } from "@/types";
 export const metadata = {
   title: "Stations",
   description:
-    "Carte interactive et liste des stations-service avec prix des carburants en France.",
+    "Interactive map and list of service stations with fuel prices in France.",
 };
 
 const PREVIEW_LIMIT = 50;
@@ -23,11 +23,11 @@ export default async function StationsPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium uppercase tracking-wider text-zinc-500">
-              {stations.length.toLocaleString("fr-FR")} stations &middot; données{" "}
+              {stations.length.toLocaleString("en-US")} stations &middot; data{" "}
               <code className="text-xs">data.gouv.fr</code>
             </p>
             <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Stations-service
+              Service stations
             </h1>
           </div>
           <Link
@@ -35,24 +35,24 @@ export default async function StationsPage() {
             className="text-sm text-zinc-600 underline underline-offset-4 hover:text-foreground"
             target="_blank"
           >
-            Tester l&apos;API ↗
+            Try the API ↗
           </Link>
         </div>
       </Container>
 
-      <section id="carte" className="mb-12 px-4 sm:px-6 lg:px-8">
+      <section id="map" className="mb-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-[1700px]">
           <StationsView stations={stations} />
           <p className="mt-3 text-xs text-zinc-500">
-            Astuce&nbsp;: zoomez ou déplacez la carte — les KPIs à gauche se
-            recalculent sur la zone visible.
+            Tip: zoom or pan the map — the KPIs on the left recompute over the
+            visible area.
           </p>
         </div>
       </section>
 
       <Container>
         <h2 className="mb-4 text-xl font-semibold tracking-tight">
-          Aperçu ({preview.length} premières stations)
+          Preview (first {preview.length} stations)
         </h2>
         <ul className="grid gap-4 sm:grid-cols-2">
           {preview.map((station) => (

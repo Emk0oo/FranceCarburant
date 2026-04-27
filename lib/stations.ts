@@ -43,7 +43,7 @@ export const getStations = cache(async (): Promise<Station[]> => {
 
     stations.push({
       id: String(r.id),
-      name: r.adresse?.trim() || "Station-service",
+      name: r.adresse?.trim() || "Service station",
       address: r.adresse?.trim() ?? "",
       city: r.ville?.trim() ?? "",
       cp: r.cp ?? "",

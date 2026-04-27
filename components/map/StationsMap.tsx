@@ -40,7 +40,7 @@ export type Bounds = {
 
 function buildIcon(color: string) {
   return L.divIcon({
-    className: "fc-station-marker",
+    className: "fp-station-marker",
     html: `<span style="display:block;width:14px;height:14px;border-radius:9999px;background:${color};border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,0.25)"></span>`,
     iconSize: [14, 14],
     iconAnchor: [7, 7],
@@ -156,7 +156,7 @@ function StationPopup({
                     : "tabular-nums text-zinc-900"
                 }
               >
-                {price != null ? formatPrice(price) : "indisponible"}
+                {price != null ? formatPrice(price) : "unavailable"}
               </span>
             </li>
           );

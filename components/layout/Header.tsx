@@ -3,8 +3,8 @@ import { Container } from "@/components/ui/Container";
 
 const navLinks = [
   { href: "/stations", label: "Stations" },
-  { href: "/stations#carte", label: "Carte" },
-  { href: "/a-propos", label: "À propos" },
+  { href: "/stations#map", label: "Map" },
+  { href: "/about", label: "About" },
 ];
 
 export function Header() {
@@ -12,7 +12,7 @@ export function Header() {
     <header className="border-b border-black/[.08] dark:border-white/[.12] bg-background">
       <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="font-semibold tracking-tight text-lg [font-family:var(--font-montserrat)]">
-          FranceCarburant.
+          FrancePetrol.
         </Link>
         <nav className="flex items-center gap-6 text-sm">
           {navLinks.map((link) => (

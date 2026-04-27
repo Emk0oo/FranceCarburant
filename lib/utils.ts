@@ -3,7 +3,7 @@ export function cn(...classes: Array<string | false | null | undefined>) {
 }
 
 export function formatPrice(value: number) {
-  return new Intl.NumberFormat("fr-FR", {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "EUR",
     minimumFractionDigits: 3,
