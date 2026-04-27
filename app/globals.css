@@ -3,24 +3,39 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* 🎨 Brand colors */
+  --primary: #1E375A;
+  --primary-light: #477FA2;
+  --primary-soft: #B0DEDF;
+
+  --grey-1: #F4F4F4;
+  --grey-2: #D1D1D1;
+  --grey-3: #2C2C2E;
+
+  --red: #FA5252;
+  --orange: #FF922B;
+  --green: #1CBA70;
+  --green-dark: #0B3F22;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* 🎯 mapping Tailwind v4 */
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-soft: var(--primary-soft);
+
+  --color-grey-1: var(--grey-1);
+  --color-grey-2: var(--grey-2);
+  --color-grey-3: var(--grey-3);
+
+  --color-red: var(--red);
+  --color-orange: var(--orange);
+  --color-green: var(--green);
+  --color-green-dark: var(--green-dark);
+
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
