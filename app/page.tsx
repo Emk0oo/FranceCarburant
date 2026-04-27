@@ -8,8 +8,8 @@ export default function HomePage() {
         <span className="text-sm font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
           Bienvenue
         </span>
-        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
-          France Carburant
+        <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight [font-family:var(--font-montserrat)]">
+          FranceCarburant.
         </h1>
         <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
           Comparez en temps réel les prix de l&apos;essence, du diesel et du
