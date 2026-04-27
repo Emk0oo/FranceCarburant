@@ -1,8 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import L from "leaflet";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -24,6 +31,13 @@ L.Icon.Default.mergeOptions({
 
 const FRANCE_CENTER: [number, number] = [46.8, 2.3];
 
+export type Bounds = {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
+};
+
 function buildIcon(color: string) {
   return L.divIcon({
     className: "fc-station-marker",
@@ -38,12 +52,14 @@ type Props = {
   stations: Station[];
   selectedFuel: FuelType;
   thresholds: number[];
+  onBoundsChange: (bounds: Bounds) => void;
 };
 
 export default function StationsMap({
   stations,
   selectedFuel,
   thresholds,
+  onBoundsChange,
 }: Props) {
   const iconCache = useMemo(() => {
     const cache = new Map<string, L.DivIcon>();
@@ -68,6 +84,7 @@ export default function StationsMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <BoundsTracker onChange={onBoundsChange} />
       <MarkerClusterGroup chunkedLoading maxClusterRadius={60}>
         {stations.map((s) => {
           const price = s.prices[selectedFuel];
@@ -87,6 +104,22 @@ export default function StationsMap({
       </MarkerClusterGroup>
     </MapContainer>
   );
+}
+
+function BoundsTracker({ onChange }: { onChange: (b: Bounds) => void }) {
+  const map = useMap();
+  const emit = () => {
+    const b = map.getBounds();
+    onChange({
+      north: b.getNorth(),
+      south: b.getSouth(),
+      east: b.getEast(),
+      west: b.getWest(),
+    });
+  };
+  useEffect(emit, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useMapEvents({ moveend: emit, zoomend: emit });
+  return null;
 }
 
 function StationPopup({
