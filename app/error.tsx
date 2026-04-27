@@ -17,19 +17,19 @@ export default function Error({
   return (
     <Container className="py-24 flex flex-col items-center text-center gap-4">
       <p className="text-sm font-medium uppercase tracking-wider text-red-600">
-        Erreur
+        Error
       </p>
       <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">
-        Une erreur est survenue
+        Something went wrong
       </h1>
       <p className="text-zinc-600 dark:text-zinc-300 max-w-md">
-        Désolé, quelque chose s&apos;est mal passé. Vous pouvez réessayer.
+        Sorry, an unexpected error occurred. You can try again.
       </p>
       <button
         onClick={reset}
         className="mt-2 inline-flex h-11 items-center justify-center rounded-full bg-foreground px-6 text-sm font-medium text-background hover:opacity-90"
       >
-        Réessayer
+        Try again
       </button>
     </Container>
   );

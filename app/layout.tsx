@@ -26,11 +26,11 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: "France Carburant",
-    template: "%s | France Carburant",
+    default: "FrancePetrol",
+    template: "%s | FrancePetrol",
   },
   description:
-    "Suivez les prix des carburants en France et trouvez la station la moins chère près de chez vous.",
+    "Track fuel prices across France and find the cheapest station near you.",
 };
 
 export default function RootLayout({
@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="fr"
+      lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} ${nunito.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">

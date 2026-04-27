@@ -2,7 +2,7 @@ export const FUEL_TYPES = [
   { id: "sp95", label: "SP95" },
   { id: "sp98", label: "SP98" },
   { id: "e10", label: "E10" },
-  { id: "gazole", label: "Gazole" },
+  { id: "gazole", label: "Diesel" },
   { id: "e85", label: "E85" },
   { id: "gplc", label: "GPLc" },
 ] as const;
