@@ -18,30 +18,38 @@ export function MapControls({
   hasNoPriceStations,
 }: Props) {
   return (
-    <div className="absolute top-3 right-3 z-[400] w-64 rounded-lg border border-black/10 bg-background/95 p-3 shadow-lg backdrop-blur dark:border-white/15">
-      <label className="block">
-        <span className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-          Carburant
-        </span>
-        <select
-          value={selectedFuel}
-          onChange={(e) => onChange(e.target.value as FuelType)}
-          className="mt-1 w-full rounded border border-black/15 bg-background px-2 py-1.5 text-sm dark:border-white/20"
-        >
-          {FUEL_TYPES.map((f) => (
-            <option key={f.id} value={f.id}>
-              {f.label}
-            </option>
-          ))}
-        </select>
-      </label>
+    <aside className="flex flex-col gap-3">
+      <div className="rounded-2xl border border-black/[.08] bg-background p-4 dark:border-white/[.12]">
+        <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+          Filtrer
+        </p>
+        <div className="mt-2 grid grid-cols-2 gap-1.5">
+          {FUEL_TYPES.map((f) => {
+            const isActive = f.id === selectedFuel;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => onChange(f.id)}
+                className={`rounded-lg border px-2 py-1.5 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-black/10 text-zinc-700 hover:border-black/30 dark:border-white/15 dark:text-zinc-200 dark:hover:border-white/40"
+                }`}
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
-      <div className="mt-3 border-t border-black/10 pt-3 dark:border-white/15">
+      <div className="rounded-2xl border border-black/[.08] bg-background p-4 dark:border-white/[.12]">
         <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
           Légende
         </p>
         {thresholds.length === 4 ? (
-          <ul className="mt-2 space-y-1 text-xs">
+          <ul className="mt-2 space-y-1.5 text-xs">
             <LegendRow
               color={PRICE_PALETTE[0]}
               label={`≤ ${formatPrice(thresholds[0])}`}
@@ -72,7 +80,7 @@ export function MapControls({
           </p>
         )}
       </div>
-    </div>
+    </aside>
   );
 }
 

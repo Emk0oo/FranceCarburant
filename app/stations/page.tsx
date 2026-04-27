@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { StationsMapDynamic } from "@/components/map/StationsMapDynamic";
+import { StationsView } from "@/components/map/StationsView";
 import { getStations } from "@/lib/stations";
 import { formatPrice } from "@/lib/utils";
 import { FUEL_TYPES } from "@/types";
@@ -38,11 +38,8 @@ export default async function StationsPage() {
         </Link>
       </div>
 
-      <section
-        id="carte"
-        className="mb-12 h-[600px] w-full overflow-hidden rounded-2xl border border-black/[.08] dark:border-white/[.12]"
-      >
-        <StationsMapDynamic stations={stations} />
+      <section id="carte" className="mb-12">
+        <StationsView stations={stations} />
       </section>
 
       <h2 className="mb-4 text-xl font-semibold tracking-tight">

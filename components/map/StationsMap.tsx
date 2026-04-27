@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -10,8 +10,7 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 import { FUEL_TYPES, type FuelType, type Station } from "@/types";
 import { formatPrice } from "@/lib/utils";
-import { MapControls } from "./MapControls";
-import { colorForPrice, computeQuintiles } from "./legend";
+import { colorForPrice } from "./legend";
 
 // Fix Leaflet's default icon paths (bundlers break the relative URLs).
 type IconDefaultPrototype = L.Icon.Default & { _getIconUrl?: unknown };
@@ -35,23 +34,17 @@ function buildIcon(color: string) {
   });
 }
 
-export default function StationsMap({ stations }: { stations: Station[] }) {
-  const [selectedFuel, setSelectedFuel] = useState<FuelType>("sp95");
+type Props = {
+  stations: Station[];
+  selectedFuel: FuelType;
+  thresholds: number[];
+};
 
-  const { thresholds, hasNoPrice } = useMemo(() => {
-    const prices: number[] = [];
-    let missing = 0;
-    for (const s of stations) {
-      const p = s.prices[selectedFuel];
-      if (p == null) missing++;
-      else prices.push(p);
-    }
-    return {
-      thresholds: computeQuintiles(prices),
-      hasNoPrice: missing > 0,
-    };
-  }, [stations, selectedFuel]);
-
+export default function StationsMap({
+  stations,
+  selectedFuel,
+  thresholds,
+}: Props) {
   const iconCache = useMemo(() => {
     const cache = new Map<string, L.DivIcon>();
     return (color: string) => {
@@ -65,42 +58,34 @@ export default function StationsMap({ stations }: { stations: Station[] }) {
   }, []);
 
   return (
-    <div className="relative h-full w-full">
-      <MapContainer
-        center={FRANCE_CENTER}
-        zoom={6}
-        scrollWheelZoom
-        style={{ height: "100%", width: "100%" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <MarkerClusterGroup chunkedLoading maxClusterRadius={60}>
-          {stations.map((s) => {
-            const price = s.prices[selectedFuel];
-            const color = colorForPrice(price, thresholds);
-            return (
-              <Marker
-                key={s.id}
-                position={[s.lat, s.lng]}
-                icon={iconCache(color)}
-              >
-                <Popup>
-                  <StationPopup station={s} selectedFuel={selectedFuel} />
-                </Popup>
-              </Marker>
-            );
-          })}
-        </MarkerClusterGroup>
-      </MapContainer>
-      <MapControls
-        selectedFuel={selectedFuel}
-        onChange={setSelectedFuel}
-        thresholds={thresholds}
-        hasNoPriceStations={hasNoPrice}
+    <MapContainer
+      center={FRANCE_CENTER}
+      zoom={6}
+      scrollWheelZoom
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-    </div>
+      <MarkerClusterGroup chunkedLoading maxClusterRadius={60}>
+        {stations.map((s) => {
+          const price = s.prices[selectedFuel];
+          const color = colorForPrice(price, thresholds);
+          return (
+            <Marker
+              key={s.id}
+              position={[s.lat, s.lng]}
+              icon={iconCache(color)}
+            >
+              <Popup>
+                <StationPopup station={s} selectedFuel={selectedFuel} />
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
+    </MapContainer>
   );
 }
 

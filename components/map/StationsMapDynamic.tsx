@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import type { Station } from "@/types";
+import type { FuelType, Station } from "@/types";
 
 const StationsMap = dynamic(() => import("./StationsMap"), {
   ssr: false,
@@ -10,6 +10,12 @@ const StationsMap = dynamic(() => import("./StationsMap"), {
   ),
 });
 
-export function StationsMapDynamic({ stations }: { stations: Station[] }) {
-  return <StationsMap stations={stations} />;
+type Props = {
+  stations: Station[];
+  selectedFuel: FuelType;
+  thresholds: number[];
+};
+
+export function StationsMapDynamic(props: Props) {
+  return <StationsMap {...props} />;
 }
