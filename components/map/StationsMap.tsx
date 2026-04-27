@@ -95,7 +95,7 @@ export default function StationsMap({
               position={[s.lat, s.lng]}
               icon={iconCache(color)}
             >
-              <Popup>
+              <Popup minWidth={220} maxWidth={260} closeButton={false}>
                 <StationPopup station={s} selectedFuel={selectedFuel} />
               </Popup>
             </Marker>
@@ -130,27 +130,33 @@ function StationPopup({
   selectedFuel: FuelType;
 }) {
   return (
-    <div className="text-sm">
-      <p className="font-semibold">{station.name}</p>
+    <div className="min-w-[200px] font-sans text-zinc-900">
+      <p className="text-[15px] font-semibold leading-tight">{station.name}</p>
       {(station.cp || station.city) && (
-        <p className="text-zinc-600">
+        <p className="mt-0.5 text-xs text-zinc-500">
           {station.cp} {station.city}
         </p>
       )}
-      <ul className="mt-2 grid grid-cols-2 gap-x-3 gap-y-0.5">
+      <ul className="mt-3 space-y-0.5 text-sm">
         {FUEL_TYPES.map((f) => {
           const price = station.prices[f.id];
           const isSelected = f.id === selectedFuel;
           return (
             <li
               key={f.id}
-              className={`flex justify-between gap-2 ${
-                isSelected ? "font-semibold" : ""
+              className={`flex items-baseline justify-between gap-3 rounded px-1.5 py-1 ${
+                isSelected ? "bg-zinc-100 font-semibold" : ""
               }`}
             >
               <span className="text-zinc-600">{f.label}</span>
-              <span className="tabular-nums">
-                {price != null ? formatPrice(price) : "—"}
+              <span
+                className={
+                  price == null
+                    ? "text-xs text-zinc-400"
+                    : "tabular-nums text-zinc-900"
+                }
+              >
+                {price != null ? formatPrice(price) : "indisponible"}
               </span>
             </li>
           );
